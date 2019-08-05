@@ -2,15 +2,17 @@ SHELL := /bin/bash
 .DEFAULT_GOAL:=all
 
 configure-chroot:
-	chroot LIVE_BOOT/chroot \
+	chroot ./LIVE_BOOT/chroot \
 	./custom_config/run.sh && \
-	rm -rf LIVE_BOOT/chroot/custom_config
+	rm -rf ./LIVE_BOOT/chroot/custom_config
 
 build-boot-image:
-	mkdir -p LIVE_BOOT/{scratch,image/live} && \
-	mksquashfs ./LIVE_BOOT/chroot ./LIVE_BOOT/image/live/filesystem.squashfs -e boot && \
-	cp ./LIVE_BOOT/chroot/boot/vmlinuz-*686 ./LIVE_BOOT/image/vmlinuz && \
-	cp ./LIVE_BOOT/chroot/boot/initrd.img-*686 ./LIVE_BOOT/image/initrd && \
+	mkdir -p ./LIVE_BOOT/{scratch,image/live} && \
+	mksquashfs ./LIVE_BOOT/chroot \
+	./LIVE_BOOT/image/live/filesystem.squashfs \
+	-e boot && \
+	cp ./LIVE_BOOT/chroot/boot/vmlinuz-* ./LIVE_BOOT/image/vmlinuz && \
+	cp ./LIVE_BOOT/chroot/boot/initrd.img-* ./LIVE_BOOT/image/initrd && \
 	touch ./LIVE_BOOT/image/DEBIAN_CUSTOM && \
 	grub-mkstandalone --format=x86_64-efi --output=./LIVE_BOOT/scratch/bootx64.efi --locales="" --fonts="" "boot/grub/grub.cfg=./LIVE_BOOT/scratch/grub.cfg" && \
 	dd if=/dev/zero of=./LIVE_BOOT/scratch/efiboot.img bs=1M count=10 && \
