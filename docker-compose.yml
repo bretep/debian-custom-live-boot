@@ -1,0 +1,14 @@
+version: '3.2'
+
+services:
+  live-boot:
+    build:
+      context: .
+    image: liveboot:latest
+    volumes:
+      - type: bind
+        source: ./output
+        target: /opt/output
+    labels:
+      - "namespace=liveboot"
+    container_name: liveboot
