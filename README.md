@@ -12,4 +12,4 @@ Create bootable usb:
 sudo umount /dev/<usb drive like sdb>
 
 sudo dd if=output/debian-custom.iso of=/dev/disk<?> bs=4m
-``
+```
