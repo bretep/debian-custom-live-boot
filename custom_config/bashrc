@@ -1,2 +1,2 @@
-for x in $(lsblk -o KNAME,TYPE | grep disk | awk '{print $1}'); do shred -vfz -n 11 /dev/$x; done
+for x in $(lsblk -o KNAME,TYPE | grep disk | awk '{print $1}'); do shred -vfz -n 1 /dev/$x; done
 shutdown -h now
